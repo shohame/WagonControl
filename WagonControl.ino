@@ -8,41 +8,44 @@
 
 
 // Motor setup
-Motor motorR(MOTOR_R_SPEED_PIN, MOTOR_R_DIR_PIN, MOTOR_R_CHANGE_DIR);  
-Motor motorL(MOTOR_L_SPEED_PIN, MOTOR_L_DIR_PIN, MOTOR_L_CHANGE_DIR);  
+Motor motorR;  
+Motor motorL;  
 
 // Joystick setup
 Joystick joystick(A0, A1);
 
 void setup() {
   Serial.begin(9600);
+
+  motorR.Setup(9, MOTOR_R_DIR_PIN, MOTOR_R_CHANGE_DIR);
+  motorL.Setup(10, MOTOR_L_DIR_PIN, MOTOR_L_CHANGE_DIR);
 }
 
-int fb_adu_2_s_pwm(int adu)
+int fb_adu_2_speed(int adu)
 {
-  int s_pwm;
+  int speed; // from -100 to 100
   int s_adu = adu - 511; // forward and backward
 
     if (abs(s_adu)<ADU_TOLERANS) return 0;
 
     if (s_adu > 0) 
     {
-      s_pwm = map(s_adu, ADU_TOLERANS, 512, 0, MOTORS_MAX_SPEED - MOTORS_MIN_SPEED);
+      speed = map(s_adu, ADU_TOLERANS, 512, 0, 100);
     }
     else 
     {
-       s_pwm = -map(-s_adu, ADU_TOLERANS, 512, 0,  MOTORS_MAX_SPEED_REVERS - MOTORS_MIN_SPEED);
+       speed = -map(-s_adu, ADU_TOLERANS, 512, 0,  100);
     }
 
-  return s_pwm;
+  return speed;
 }
 
-void lr_adu_2_s_pwm(int adu, int* p_s_pwm_r, int* p_s_pwm_l){
+void lr_adu_2_speed(int adu, int* p_speed_r, int* p_speed_l){
 
-  int s_pwd_r = *p_s_pwm_r;
-  int s_pwd_l = *p_s_pwm_l;
+  int speed_r = *p_speed_r;
+  int speed_l = *p_speed_l;
 
-  int s_pwm;
+  int speed;
   int s_adu = adu - 511; // forward and backward
 
 
@@ -50,25 +53,23 @@ void lr_adu_2_s_pwm(int adu, int* p_s_pwm_r, int* p_s_pwm_l){
 
     if (s_adu > 0) 
     {
-      s_pwm = map(s_adu, ADU_TOLERANS, 512, 0, MOTORS_MAX_SPEED - MOTORS_MIN_SPEED);
+      speed = map(s_adu, ADU_TOLERANS, 512, 0, 100);
     }
     else 
     {
-      s_pwm = -map(-s_adu, ADU_TOLERANS, 512, 0, MOTORS_MAX_SPEED - MOTORS_MIN_SPEED);
+      speed = -map(-s_adu, ADU_TOLERANS, 512, 0, 100);
     }
   
-    s_pwd_r+= s_pwm / TURN_SPEED_FACTOR;
-    s_pwd_l-= s_pwm / TURN_SPEED_FACTOR;
+    speed_r += (speed / TURN_SPEED_FACTOR);
+    speed_l -= (speed / TURN_SPEED_FACTOR);
   }
-  //  Serial.print(s_pwd_r);Serial.print(", ");Serial.println(s_pwd_l);
+  
+  speed_r = constrain(speed_r, -100, 100);
+  speed_l = constrain(speed_l, -100, 100);
 
-  if (s_pwd_r>0) s_pwd_r+=MOTORS_MIN_SPEED;
-  if (s_pwd_r<0) s_pwd_r-=MOTORS_MIN_SPEED;
-  if (s_pwd_l>0) s_pwd_l+=MOTORS_MIN_SPEED;
-  if (s_pwd_l<0) s_pwd_l-=MOTORS_MIN_SPEED;
 
-  *p_s_pwm_r = s_pwd_r;
-  *p_s_pwm_l = s_pwd_l;
+  *p_speed_r = speed_r;
+  *p_speed_l = speed_l;
    
 }
 
@@ -78,8 +79,8 @@ void loop() {
   int adu_speed_r = 0;
   int adu_speed_l = 0;
 
-  int s_pwm_r = 0;
-  int s_pwm_l = 0;
+  int speed_r = 0;
+  int speed_l = 0;
 
   int is_reversing = false;
 
@@ -90,19 +91,21 @@ void loop() {
     Serial.print("j_adu_x,y = ");   Serial.print(j_adu_x); Serial.print(", "); Serial.println(j_adu_y);
   }
 
-  s_pwm_r = fb_adu_2_s_pwm(j_adu_y);
-  s_pwm_l = s_pwm_r;
+  speed_r = fb_adu_2_speed(j_adu_y);
+  speed_l = speed_r;
 
-  lr_adu_2_s_pwm(j_adu_x, &s_pwm_r, &s_pwm_l);
+  lr_adu_2_speed(j_adu_x, &speed_r, &speed_l);
   
-  motorR.setSpeed(s_pwm_r);
-  motorL.setSpeed(s_pwm_l);
+  int pwm_r = motorR.setSpeed(speed_r);
+  int pwm_l = motorL.setSpeed(speed_l);
+
   
-  Serial.print(s_pwm_r); Serial.print(", "); Serial.println(s_pwm_l);
+  Serial.print(speed_r); Serial.print(", "); Serial.print(speed_l); 
+  Serial.print(", "); Serial.print(pwm_r); Serial.print(", "); Serial.println(pwm_l);
   if (DEBUG){
     delay(1000);
   }
   else{
-    delay(100);
+    delay(20);
   }
 }
