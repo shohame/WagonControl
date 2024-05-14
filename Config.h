@@ -1,9 +1,9 @@
 #define ADU_TOLERANS 30  	// 512 + 30 = forward; 512 - 30 = backward
 #define ADU_MID_VALUE 512
 
-#define MOTORS_MIN_PWM_VAL_SPEED (50)    // Do not change it
-#define MOTORS_MAX_PWM_VAL_SPEED (150)   // 197 = (3.5V / 5) * 256
-#define MOTORS_MAX_SPEED_REVERS (100)
+#define MOTORS_MIN_PWM_VAL_SPEED (70)    // Do not change it
+#define MOTORS_MAX_PWM_VAL_SPEED (120)   // 197 = (3.5V / 5) * 256
+#define MOTORS_MAX_SPEED_REVERS (120)
 
 #define TURN_SPEED_FACTOR 2   // reduce revers speed
 

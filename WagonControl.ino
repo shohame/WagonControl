@@ -106,6 +106,6 @@ void loop() {
     delay(1000);
   }
   else{
-    delay(20);
+    delay(0);
   }
 }
