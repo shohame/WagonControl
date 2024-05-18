@@ -1,9 +1,26 @@
-#define ADU_TOLERANS 30  	// 512 + 30 = forward; 512 - 30 = backward
+
+
+// constants: (Do not change!!!)
+#define eJOYSTICK 1
+#define eBLUETOOTH 2
+// end of constance 
+
+
+
+#define DEBUG 0  // for printing debug information
+
+
+#define BT_RX_PIN 3 // this pin is connected to TX on BT module 
+#define BT_TX_PIN 3 // this pin is connected to RX on BT module 
+
+#define WC_CONTROLED_BY  eBLUETOOTH     // eJOYSTICK or eBLUETOOTH
+
+#define ADU_TOLERANCE 30  	// 512 + 30 = forward; 512 - 30 = backward
 #define ADU_MID_VALUE 512
 
 #define MOTORS_MIN_PWM_VAL_SPEED (70)    // Do not change it
-#define MOTORS_MAX_PWM_VAL_SPEED (120)   // 197 = (3.5V / 5) * 256
-#define MOTORS_MAX_SPEED_REVERS (120)
+#define MOTORS_MAX_PWM_VAL_SPEED (150)   // 197 = (3.5V / 5) * 256
+#define MOTORS_MAX_SPEED_REVERS (150)
 
 #define TURN_SPEED_FACTOR 2   // reduce revers speed
 

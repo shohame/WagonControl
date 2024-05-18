@@ -1,8 +1,11 @@
-#include "HardwareSerial.h"
-// Motor.cpp
-#include "Arduino.h"
+#include <"HardwareSerial.h">
+#include <"Arduino.h">
 #include "Motor.h"
 #include "Config.h"
+
+Motor motorR;  
+Motor motorL;  
+
 
 Motor::Motor(void)
 {

@@ -1,4 +1,3 @@
-// Joystick.cpp
 #include "Arduino.h"
 #include "Joystick.h"
 

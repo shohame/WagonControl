@@ -4,6 +4,8 @@
 
 #include "Arduino.h"
 
+
+
 class Motor
 {
   public:
@@ -17,5 +19,8 @@ class Motor
     int _changeDir;
 
 };
+
+extern Motor motorR;  
+extern Motor motorL;  
 
 #endif

@@ -1,111 +1,36 @@
 #include <math.h>
+#include <Arduino.h>
 
 #include "Motor.h"
-#include "Joystick.h"
+#include "WC_Joystick.h"
+#include "WC_Bluetooth.h"
 #include "Config.h"
 
-#define DEBUG 0
 
-
-// Motor setup
-Motor motorR;  
-Motor motorL;  
 
 // Joystick setup
-Joystick joystick(A0, A1);
 
 void setup() {
   Serial.begin(9600);
 
   motorR.Setup(9, MOTOR_R_DIR_PIN, MOTOR_R_CHANGE_DIR);
   motorL.Setup(10, MOTOR_L_DIR_PIN, MOTOR_L_CHANGE_DIR);
-}
-
-int fb_adu_2_speed(int adu)
-{
-  int speed; // from -100 to 100
-  int s_adu = adu - 511; // forward and backward
-
-    if (abs(s_adu)<ADU_TOLERANS) return 0;
-
-    if (s_adu > 0) 
-    {
-      speed = map(s_adu, ADU_TOLERANS, 512, 0, 100);
-    }
-    else 
-    {
-       speed = -map(-s_adu, ADU_TOLERANS, 512, 0,  100);
-    }
-
-  return speed;
-}
-
-void lr_adu_2_speed(int adu, int* p_speed_r, int* p_speed_l){
-
-  int speed_r = *p_speed_r;
-  int speed_l = *p_speed_l;
-
-  int speed;
-  int s_adu = adu - 511; // forward and backward
-
-
-  if (abs(s_adu)>ADU_TOLERANS){
-
-    if (s_adu > 0) 
-    {
-      speed = map(s_adu, ADU_TOLERANS, 512, 0, 100);
-    }
-    else 
-    {
-      speed = -map(-s_adu, ADU_TOLERANS, 512, 0, 100);
-    }
-  
-    speed_r += (speed / TURN_SPEED_FACTOR);
-    speed_l -= (speed / TURN_SPEED_FACTOR);
+  if (WC_CONTROLED_BY == eJOYSTICK){
+    wc_joystick_setup();
   }
-  
-  speed_r = constrain(speed_r, -100, 100);
-  speed_l = constrain(speed_l, -100, 100);
+  else { // (WC_CONTROLED_BY == eBLUETOOTH
+    wc_bluetooth_setup();
+  }
 
-
-  *p_speed_r = speed_r;
-  *p_speed_l = speed_l;
-   
 }
 
 void loop() {
-  int adu_speed = 0;
-
-  int adu_speed_r = 0;
-  int adu_speed_l = 0;
-
-  int speed_r = 0;
-  int speed_l = 0;
-
-  int is_reversing = false;
-
-  int j_adu_x = joystick.readX();
-  int j_adu_y = joystick.readY();
-
-  if (DEBUG) {
-    Serial.print("j_adu_x,y = ");   Serial.print(j_adu_x); Serial.print(", "); Serial.println(j_adu_y);
+  if (WC_CONTROLED_BY == eJOYSTICK){
+    wc_joystick_loop();
+  }
+  else { // (WC_CONTROLED_BY == eBLUETOOTH
+    wc_bluetooth_loop();
   }
 
-  speed_r = fb_adu_2_speed(j_adu_y);
-  speed_l = speed_r;
 
-  lr_adu_2_speed(j_adu_x, &speed_r, &speed_l);
-  
-  int pwm_r = motorR.setSpeed(speed_r);
-  int pwm_l = motorL.setSpeed(speed_l);
-
-  
-  Serial.print(speed_r); Serial.print(", "); Serial.print(speed_l); 
-  Serial.print(", "); Serial.print(pwm_r); Serial.print(", "); Serial.println(pwm_l);
-  if (DEBUG){
-    delay(1000);
-  }
-  else{
-    delay(0);
-  }
 }
