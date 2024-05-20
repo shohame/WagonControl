@@ -1,0 +1,6 @@
+{
+    "port": "COM1",
+    "board": "arduino:avr:nano",
+    "prebuild": "IF \"%VSCA_BUILD_MODE%\"==\"Verifying\" (echo VSCA_BUILD_MODE=%VSCA_BUILD_MODE% && echo VSCA_BOARD=%VSCA_BOARD%)",
+    "sketch": "WagonControl.ino"
+}

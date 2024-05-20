@@ -20,6 +20,11 @@ void BT_RC_Control::setup()
 
 void BT_RC_Control::set_char(char dataByte){
 
+  int forward_speed;
+  forward_speed =  MOTORS_MIN_PWM_VAL_SPEED + 
+  _speed_level 
+MOTORS_MIN_PWM_VAL_SPEED
+MOTORS_MAX_PWM_VAL_SPEED
   if (dataByte>='0' && dataByte<='9'){
     _speed_level = dataByte - '0';
   }
@@ -67,12 +72,9 @@ void BT_RC_Control::set_char(char dataByte){
         break;
   
       default:
+      
 
     }
   }
-
-     
-)
-
 
 }

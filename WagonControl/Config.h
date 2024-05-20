@@ -6,9 +6,7 @@
 // end of constance 
 
 
-
 #define DEBUG 0  // for printing debug information
-
 
 #define BT_RX_PIN 3 // this pin is connected to TX on BT module 
 #define BT_TX_PIN 3 // this pin is connected to RX on BT module 
@@ -19,8 +17,8 @@
 #define ADU_MID_VALUE 512
 
 #define MOTORS_MIN_PWM_VAL_SPEED (70)    // Do not change it
-#define MOTORS_MAX_PWM_VAL_SPEED (150)   // 197 = (3.5V / 5) * 256
-#define MOTORS_MAX_SPEED_REVERS (150)
+#define MOTORS_MAX_PWM_VAL_SPEED (200)   // 197 = (3.5V / 5) * 256
+#define MOTORS_MAX_SPEED_REVERS (200)
 
 #define TURN_SPEED_FACTOR 2   // reduce revers speed
 
