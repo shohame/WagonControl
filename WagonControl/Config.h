@@ -9,7 +9,7 @@
 #define DEBUG 0  // for printing debug information
 
 #define BT_RX_PIN 3 // this pin is connected to TX on BT module 
-#define BT_TX_PIN 3 // this pin is connected to RX on BT module 
+#define BT_TX_PIN 2 // this pin is connected to RX on BT module 
 
 #define WC_CONTROLED_BY  eBLUETOOTH     // eJOYSTICK or eBLUETOOTH
 

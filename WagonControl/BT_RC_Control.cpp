@@ -24,7 +24,7 @@ void BT_RC_Control::set_char(char dataByte){
   int forward_speed;
   int turn_speed;  
     
-  forward_speed =  100 * _speed_level / 11;
+  forward_speed =  100 * (_speed_level+1) / 12;
   turn_speed = forward_speed / TURN_SPEED_FACTOR;
     
   if (dataByte>='0' && dataByte<='9'){
@@ -40,7 +40,6 @@ void BT_RC_Control::set_char(char dataByte){
         _speed_level = 10;        
         break;
       case 'F':         // Forward
-      Serial.println("FFF");
         _speed_r = forward_speed;
         _speed_l = forward_speed;
         break;

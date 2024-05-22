@@ -25,11 +25,11 @@ char Bluetooth::read(){
 
   if (BTSerial.available()){
     dataByte = BTSerial.read();
-    Serial.println("Data =");
-    Serial.write(dataByte);
+   // Serial.println("Data =");
+   // Serial.write(dataByte);
 
   }else{
-    Serial.println("No Data");
+  //  Serial.println("No Data");
   }
   
   return dataByte;
