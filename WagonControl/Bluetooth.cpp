@@ -7,6 +7,7 @@
 const byte rxPin = BT_RX_PIN;
 const byte txPin = BT_TX_PIN;
 
+
 SoftwareSerial BTSerial(rxPin, txPin); 
 
 Bluetooth::Bluetooth()
