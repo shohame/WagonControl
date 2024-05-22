@@ -1,8 +1,9 @@
+#include "HardwareSerial.h"
 
 
-#include <"Arduino.h">
+#include <Arduino.h>
 #include "BT_RC_Control.h"
-
+#include "Config.h"
 
 BT_RC_Control::BT_RC_Control(void){
 
@@ -23,14 +24,13 @@ void BT_RC_Control::set_char(char dataByte){
   int forward_speed;
   int turn_speed;  
     
-  forward_speed =  MOTORS_MIN_PWM_VAL_SPEED + (MOTORS_MAX_PWM_VAL_SPEED - MOTORS_MIN_PWM_VAL_SPEED) * _speed_level;
+  forward_speed =  100 * _speed_level / 11;
   turn_speed = forward_speed / TURN_SPEED_FACTOR;
     
   if (dataByte>='0' && dataByte<='9'){
     _speed_level = dataByte - '0';
   }
-  else 
-  {
+  else{
     switch (dataByte){
       case 'S':         // Stop
         _speed_r = 0;
@@ -40,6 +40,7 @@ void BT_RC_Control::set_char(char dataByte){
         _speed_level = 10;        
         break;
       case 'F':         // Forward
+      Serial.println("FFF");
         _speed_r = forward_speed;
         _speed_l = forward_speed;
         break;
@@ -73,6 +74,7 @@ void BT_RC_Control::set_char(char dataByte){
         break;
   
       default:
+      {}
       
 
     }

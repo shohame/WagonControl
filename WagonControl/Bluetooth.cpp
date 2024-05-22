@@ -1,3 +1,4 @@
+#include "HardwareSerial.h"
 #include <Arduino.h>
 #include "Bluetooth.h"
 #include "Config.h"
@@ -21,9 +22,16 @@ void Bluetooth::setup(){
 
 char Bluetooth::read(){
   char dataByte = 0;
-  if (BTSerial.available(){
+
+  if (BTSerial.available()){
     dataByte = BTSerial.read();
+    Serial.println("Data =");
+    Serial.write(dataByte);
+
+  }else{
+    Serial.println("No Data");
   }
+  
   return dataByte;
 }
 

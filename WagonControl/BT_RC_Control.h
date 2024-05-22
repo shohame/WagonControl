@@ -30,7 +30,7 @@ class BT_RC_Control
     int get_speed_l() {return _speed_l;}
     
   private:
-    int _speed_factor;
+    int _speed_level;
     int _red_light;
     int _blue_light;
     int _speed_r;
