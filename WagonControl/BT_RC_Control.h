@@ -35,6 +35,7 @@ class BT_RC_Control
     int _blue_light;
     int _speed_r;
     int _speed_l;
+    unsigned long _last_data_millis;
 
 };
 

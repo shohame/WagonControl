@@ -17,16 +17,30 @@ void BT_RC_Control::setup()
     _blue_light = 0;
     _speed_r = 0;
     _speed_l = 0;
+    _last_data_millis = millis();
 }
 
 void BT_RC_Control::set_char(char dataByte){
 
   int forward_speed;
   int turn_speed;  
-    
+  unsigned long current_millis = millis();
+
   forward_speed =  100 * (_speed_level+1) / 12;
   turn_speed = forward_speed / TURN_SPEED_FACTOR;
-    
+
+  // If bluetooth dosen't recive anithing for mSEC_OF_BT_IDEL_TO_STOP_CAR: Stop the car! 
+  
+  if (dataByte == 0){ // No data in buffer
+    if ((current_millis - _last_data_millis) > mSEC_OF_BT_IDEL_TO_STOP_CAR){
+      _speed_r = 0;
+      _speed_l = 0;
+    }
+    return;
+  }
+
+  _last_data_millis = current_millis;
+
   if (dataByte>='0' && dataByte<='9'){
     _speed_level = dataByte - '0';
   }

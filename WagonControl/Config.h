@@ -8,6 +8,8 @@
 
 #define DEBUG 0  // for printing debug information
 
+#define mSEC_OF_BT_IDEL_TO_STOP_CAR     300  // If bluetooth dosen't recive anithing for 300mSEC: Stop the car! 
+
 #define BT_RX_PIN 3 // this pin is connected to TX on BT module 
 #define BT_TX_PIN 2 // this pin is connected to RX on BT module 
 

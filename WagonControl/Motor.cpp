@@ -36,6 +36,7 @@ int Motor::setSpeed(int speed)
   int pwm_val; 
   int dir;
   int current_speed = _last_speed;
+  
   if (speed>_last_speed) current_speed+=1;
   else if (speed<_last_speed) current_speed-=1;
 
