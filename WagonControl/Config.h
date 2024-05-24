@@ -10,9 +10,10 @@
 
 #define mSEC_OF_BT_IDEL_TO_STOP_CAR     300  // If bluetooth dosen't recive anithing for 300mSEC: Stop the car! 
 
-#define BT_RX_PIN 3 // this pin is connected to TX on BT module 
+#define BT_RX_PIN 4 // this pin is connected to TX on BT module 
 #define BT_TX_PIN 2 // this pin is connected to RX on BT module 
-
+#define SPEED_RANG 1000
+#define SPEED_RESOLUTION 5
 #define WC_CONTROLED_BY  eBLUETOOTH     // eJOYSTICK or eBLUETOOTH
 
 #define ADU_TOLERANCE 30  	// 512 + 30 = forward; 512 - 30 = backward

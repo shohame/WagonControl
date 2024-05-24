@@ -36,19 +36,28 @@ int Motor::setSpeed(int speed)
   int pwm_val; 
   int dir;
   int current_speed = _last_speed;
-  
-  if (speed>_last_speed) current_speed+=1;
-  else if (speed<_last_speed) current_speed-=1;
 
+  if (speed>0) {
+    speed -= speed % SPEED_RESOLUTION;
+  } else{
+    speed += (-speed) % SPEED_RESOLUTION;
+
+  }
+
+  if (speed>_last_speed) current_speed+=SPEED_RESOLUTION;
+  else if (speed<_last_speed) current_speed-=SPEED_RESOLUTION;
   if (current_speed >= 0){
-    pwm_val = MOTORS_MIN_PWM_VAL_SPEED + current_speed * (MOTORS_MAX_PWM_VAL_SPEED - MOTORS_MIN_PWM_VAL_SPEED) / 100;
+    pwm_val = MOTORS_MIN_PWM_VAL_SPEED + (long)current_speed * (MOTORS_MAX_PWM_VAL_SPEED - MOTORS_MIN_PWM_VAL_SPEED) / SPEED_RANG;
     dir = 0;
   }
   else{
-    pwm_val = MOTORS_MIN_PWM_VAL_SPEED - current_speed * (MOTORS_MAX_SPEED_REVERS - MOTORS_MIN_PWM_VAL_SPEED) / 100;
+    pwm_val = MOTORS_MIN_PWM_VAL_SPEED - (long)current_speed * (MOTORS_MAX_SPEED_REVERS - MOTORS_MIN_PWM_VAL_SPEED) / SPEED_RANG;
       dir = 1;
   }
   if (current_speed==0) pwm_val = 0;
+
+  // Serial.print(current_speed);  Serial.print(", "); Serial.println(pwm_val);
+
 
   digitalWrite(_dirPin, dir ^ _changeDir);
   analogWrite(_pwmPin, pwm_val);

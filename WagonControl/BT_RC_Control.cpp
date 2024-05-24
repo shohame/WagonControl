@@ -26,7 +26,7 @@ void BT_RC_Control::set_char(char dataByte){
   int turn_speed;  
   unsigned long current_millis = millis();
 
-  forward_speed =  100 * (_speed_level+1) / 12;
+  forward_speed =  SPEED_RANG * (_speed_level+1) / 12;
   turn_speed = forward_speed / TURN_SPEED_FACTOR;
 
   // If bluetooth dosen't recive anithing for mSEC_OF_BT_IDEL_TO_STOP_CAR: Stop the car! 

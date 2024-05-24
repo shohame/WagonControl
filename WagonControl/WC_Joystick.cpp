@@ -18,10 +18,10 @@ int fb_adu_2_speed(int adu) {
     if (abs(s_adu)<ADU_TOLERANCE) return 0;
 
     if (s_adu > 0) {
-      speed = map(s_adu, ADU_TOLERANCE, 512, 0, 100);
+      speed = map(s_adu, ADU_TOLERANCE, 512, 0, SPEED_RANG);
     }
     else {
-       speed = -map(-s_adu, ADU_TOLERANCE, 512, 0,  100);
+       speed = -map(-s_adu, ADU_TOLERANCE, 512, 0,  SPEED_RANG);
     }
 
   return speed;
@@ -38,18 +38,18 @@ void lr_adu_2_speed(int adu, int* p_speed_r, int* p_speed_l){
   if (abs(s_adu)>ADU_TOLERANCE){
 
     if (s_adu > 0){
-      speed = map(s_adu, ADU_TOLERANCE, 512, 0, 100);
+      speed = map(s_adu, ADU_TOLERANCE, 512, 0, SPEED_RANG);
     }
     else {
-      speed = -map(-s_adu, ADU_TOLERANCE, 512, 0, 100);
+      speed = -map(-s_adu, ADU_TOLERANCE, 512, 0, SPEED_RANG);
     }
   
     speed_r += (speed / TURN_SPEED_FACTOR);
     speed_l -= (speed / TURN_SPEED_FACTOR);
   }
   
-  speed_r = constrain(speed_r, -100, 100);
-  speed_l = constrain(speed_l, -100, 100);
+  speed_r = constrain(speed_r, -SPEED_RANG, SPEED_RANG);
+  speed_l = constrain(speed_l, -SPEED_RANG, SPEED_RANG);
 
 
   *p_speed_r = speed_r;
