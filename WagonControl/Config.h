@@ -5,13 +5,19 @@
 #define eBLUETOOTH 2
 // end of constance 
 
-
 #define DEBUG 0  // for printing debug information
+
+#define US_ECHO_PIN   2   // must be 2 or 3 for interrupt in UNO 
+#define US_TRIG_PIN   7
+
+#define US_MIN_RANG_cm 1000   
+#define US_MAX_RANG_cm 2500
 
 #define mSEC_OF_BT_IDEL_TO_STOP_CAR     300  // If bluetooth dosen't recive anithing for 300mSEC: Stop the car! 
 
-#define BT_RX_PIN 4 // this pin is connected to TX on BT module 
-#define BT_TX_PIN 2 // this pin is connected to RX on BT module 
+#define BT_RX_PIN 5 // this pin is connected to TX on BT module 
+#define BT_TX_PIN 4 // this pin is connected to RX on BT module 
+
 #define SPEED_RANG 1000
 #define SPEED_RESOLUTION 5
 #define WC_CONTROLED_BY  eBLUETOOTH     // eJOYSTICK or eBLUETOOTH

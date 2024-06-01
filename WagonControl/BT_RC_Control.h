@@ -13,10 +13,10 @@
   J - BR
   H - BL
 
-  Ww - B light
+  Ww - B light   (W - on; w - off)
   Uu - R light
   Vv - Sound
-  Xx - Trungle
+  Xx - Triangular
   0-9 - q    Speed q is the fastest
 
 */
@@ -28,6 +28,8 @@ class BT_RC_Control
     void set_char(char dataByte); 
     int get_speed_r() {return _speed_r;}
     int get_speed_l() {return _speed_l;}
+    char get_triangular() {return _triangular;}     
+    int get_forward_speed() {return _forward_speed;}
     
   private:
     int _speed_level;
@@ -35,6 +37,8 @@ class BT_RC_Control
     int _blue_light;
     int _speed_r;
     int _speed_l;
+    char _triangular;
+    int _forward_speed;
     unsigned long _last_data_millis;
 
 };

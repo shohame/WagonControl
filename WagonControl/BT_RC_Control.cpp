@@ -17,17 +17,17 @@ void BT_RC_Control::setup()
     _blue_light = 0;
     _speed_r = 0;
     _speed_l = 0;
+    _triangular = 0;
+    _forward_speed = 0;
     _last_data_millis = millis();
 }
 
 void BT_RC_Control::set_char(char dataByte){
 
-  int forward_speed;
   int turn_speed;  
   unsigned long current_millis = millis();
 
-  forward_speed =  SPEED_RANG * (_speed_level+1) / 12;
-  turn_speed = forward_speed / TURN_SPEED_FACTOR;
+  turn_speed = _forward_speed / TURN_SPEED_FACTOR;
 
   // If bluetooth dosen't recive anithing for mSEC_OF_BT_IDEL_TO_STOP_CAR: Stop the car! 
   
@@ -35,6 +35,7 @@ void BT_RC_Control::set_char(char dataByte){
     if ((current_millis - _last_data_millis) > mSEC_OF_BT_IDEL_TO_STOP_CAR){
       _speed_r = 0;
       _speed_l = 0;
+      _forward_speed = 0;
     }
     return;
   }
@@ -54,12 +55,12 @@ void BT_RC_Control::set_char(char dataByte){
         _speed_level = 10;        
         break;
       case 'F':         // Forward
-        _speed_r = forward_speed;
-        _speed_l = forward_speed;
+        _speed_r = _forward_speed;
+        _speed_l = _forward_speed;
         break;
       case 'B':         // Backward
-        _speed_r = -forward_speed;
-        _speed_l = -forward_speed;
+        _speed_r = -_forward_speed;
+        _speed_l = -_forward_speed;
         break;
       case 'R':         // Right
         _speed_r = -turn_speed;
@@ -70,25 +71,32 @@ void BT_RC_Control::set_char(char dataByte){
         _speed_l = -turn_speed;
         break;
       case 'I':       // FR
-        _speed_r = forward_speed - turn_speed;
-        _speed_l = forward_speed + turn_speed;
+        _speed_r = _forward_speed - turn_speed;
+        _speed_l = _forward_speed + turn_speed;
         break;
       case 'G':       // FL
-        _speed_r = forward_speed + turn_speed;
-        _speed_l = forward_speed - turn_speed;
+        _speed_r = _forward_speed + turn_speed;
+        _speed_l = _forward_speed - turn_speed;
         break;
       case 'J':       // BR
-        _speed_r = -forward_speed + turn_speed;
-        _speed_l = -forward_speed - turn_speed;
+        _speed_r = -_forward_speed + turn_speed;
+        _speed_l = -_forward_speed - turn_speed;
         break;
       case 'H':       // BL
-        _speed_r = -forward_speed - turn_speed;
-        _speed_l = -forward_speed + turn_speed;
+        _speed_r = -_forward_speed - turn_speed;
+        _speed_l = -_forward_speed + turn_speed;
+        break;
+      case 'X':
+        _triangular = 1;
+        break;
+      case 'x':
+        _triangular = 0;
         break;
   
       default:
       {}
       
+    _forward_speed =  SPEED_RANG * (_speed_level+1) / 12;
 
     }
   }
