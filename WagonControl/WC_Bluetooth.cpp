@@ -29,6 +29,7 @@ void wc_bluetooth_loop(){
 
   if (bl_rc_control.get_triangular()){
     long range_cm = US_sensor.get_distance();
+    US_sensor.start_measurement();
     if (range_cm >= US_MIN_RANG_cm && range_cm <= US_MAX_RANG_cm){
       pwm_r = motorR.setSpeed(bl_rc_control.get_forward_speed());
       pwm_l = motorL.setSpeed(bl_rc_control.get_forward_speed());
