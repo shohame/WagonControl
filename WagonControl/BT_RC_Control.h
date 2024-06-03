@@ -39,7 +39,9 @@ class BT_RC_Control
     int _speed_l;
     char _triangular;
     int _forward_speed;
+    int _turn_speed;
     unsigned long _last_data_millis;
+    void _set_char(char dataByte); 
 
 };
 
