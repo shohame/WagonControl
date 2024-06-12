@@ -11,8 +11,8 @@ AT+BAUD4    // 4-9600, 5-19200, 6—38400, 7—57600, 8—115200
 */
 
 
-const byte rxPin = 3; // connected to TX on BT module
-const byte txPin = 2; // connected to RX on BT module
+const byte rxPin = 5; // connected to TX on BT module
+const byte txPin = 4; // connected to RX on BT module
 
 SoftwareSerial BTSerial(rxPin, txPin); 
 

@@ -45,8 +45,8 @@ void wc_bluetooth_loop(){
 
   }
   
-  //Serial.print(speed_r); Serial.print(", "); Serial.print(speed_l); 
-  //Serial.print(", "); Serial.print(pwm_r); Serial.print(", "); Serial.println(pwm_l);
+  //Serial.print(speed_r); Serial.print(", "); Serial.print(speed_l); Serial.print(", ");
+   Serial.print(pwm_r); Serial.print(", "); Serial.println(pwm_l);
   if (DEBUG){
     delay(1000);
   }

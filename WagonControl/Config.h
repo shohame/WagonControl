@@ -10,8 +10,8 @@
 #define US_ECHO_PIN   2   // must be 2 or 3 for interrupt in UNO 
 #define US_TRIG_PIN   7
 
-#define US_MIN_RANG_cm 1000   
-#define US_MAX_RANG_cm 2500
+#define US_MIN_RANG_cm 100
+#define US_MAX_RANG_cm 250
 
 #define mSEC_OF_BT_IDEL_TO_STOP_CAR     300  // If bluetooth dosen't recive anithing for 300mSEC: Stop the car! 
 
