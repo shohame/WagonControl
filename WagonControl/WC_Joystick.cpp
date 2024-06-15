@@ -1,8 +1,8 @@
 #include <Arduino.h>
 #include <math.h>
-#include "Motor.h"
 #include "Joystick.h"
 #include "Config.h"
+#include "WC_Movement.h"
 
 
 // Joystick setup
@@ -79,12 +79,8 @@ void wc_joystick_loop() {
 
   lr_adu_2_speed(j_adu_x, &speed_r, &speed_l);
   
-  int pwm_r = motorR.setSpeed(speed_r);
-  int pwm_l = motorL.setSpeed(speed_l);
-
+  wcMovement.move(speed_r, speed_l);
   
-  //Serial.print(speed_r); Serial.print(", "); Serial.print(speed_l); Serial.print(", ");
-   Serial.print(pwm_r); Serial.print(", "); Serial.println(pwm_l);
    
   if (DEBUG){
     delay(1000);
