@@ -2,9 +2,9 @@
 #include "Bluetooth.h"
 #include "WC_Bluetooth.h"
 #include "BT_RC_Control.h"
-#include "Motor.h"
 #include "Config.h"
 #include "UltrasonicSensor.h"
+#include "WC_Movement.h"
 
 Bluetooth bluetooth;
 BT_RC_Control bl_rc_control;
@@ -18,8 +18,7 @@ void wc_bluetooth_setup(){
 
 
 void wc_bluetooth_loop(){
-  int pwm_r;
-  int pwm_l;
+  int pwm_r, pwm_l, speed_r, speed_l;
 
   char dataByte = bluetooth.read();
   
@@ -31,30 +30,28 @@ void wc_bluetooth_loop(){
     long range_cm = US_sensor.get_distance();
     US_sensor.start_measurement();
     if (range_cm >= US_MIN_RANG_cm && range_cm <= US_MAX_RANG_cm){
-      pwm_r = motorR.setSpeed(bl_rc_control.get_forward_speed());
-      pwm_l = motorL.setSpeed(bl_rc_control.get_forward_speed());
-    }
+
+      speed_r = bl_rc_control.get_forward_speed();
+      speed_l = bl_rc_control.get_forward_speed();
+     }
     else{
-      pwm_r = motorR.setSpeed(0);
-      pwm_l = motorL.setSpeed(0);
-    }
+      speed_r = 0;
+      speed_l = 0;
+     }
   }
   else{
-    pwm_r = motorR.setSpeed(bl_rc_control.get_speed_r());
-    pwm_l = motorL.setSpeed(bl_rc_control.get_speed_l());
-
+    speed_r = bl_rc_control.get_speed_r();
+    speed_l = bl_rc_control.get_speed_l();
   }
-  
-  //Serial.print(speed_r); Serial.print(", "); Serial.print(speed_l); Serial.print(", ");
-   Serial.print(pwm_r); Serial.print(", "); Serial.println(pwm_l);
+
+  wcMovement.move(speed_r, speed_l);
+
   if (DEBUG){
     delay(1000);
   }
   else{
     delay(20);
   }
-
-
 }
 
 
