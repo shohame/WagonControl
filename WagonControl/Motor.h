@@ -9,7 +9,7 @@ class Motor
 {
   public:
     Motor(void);
-    void Setup(int pwmPin, int dirPin, int changeDir); 
+    void setup(int pwmPin, int dirPin, int changeDir); 
     int setSpeed(int speed); // speed < 0 = backward
   private:
     int _pwmPin;

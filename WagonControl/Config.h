@@ -7,6 +7,12 @@
 
 #define DEBUG 0  // for printing debug information
 
+#define BRAKE_OPEN_PIN 3
+#define BRAKE_CLOSE_PIN 6
+
+#define BRAKE_OPEN_DURATION_mS  2000
+#define BRAKE_CLOSE_DURATION_mS  2000
+
 #define US_ECHO_PIN   2   // must be 2 or 3 for interrupt in UNO 
 #define US_TRIG_PIN   7
 

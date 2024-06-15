@@ -12,7 +12,7 @@ Motor::Motor(void)
 }
 
 
-void Motor::Setup(int pwmPin, int dirPin, int changeDir)
+void Motor::setup(int pwmPin, int dirPin, int changeDir)
 {
   if ((pwmPin != 9) && (pwmPin != 10))
   {
