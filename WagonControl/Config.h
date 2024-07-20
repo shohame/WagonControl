@@ -19,6 +19,10 @@
 
 
 #define SMALL_JOYSTICK_LOOP_DELAY_mS 50
+
+#define SMALL_JOYSTICK_FAST_SPEED    700   // upto 1000
+#define SMALL_JOYSTICK_SLOW_SPEED    400   // upto 1000
+
 // ######### Joystick configuration: #########
 #define JOYSTICK_X_PIN A0
 #define JOYSTICK_Y_PIN A1

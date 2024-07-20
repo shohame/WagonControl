@@ -54,6 +54,11 @@ void Small_Joystick::update()
     status = enNONE;
   }
 
+  if ((_prevStatus == status) && (status == enPush) && (_status == enPush)) {
+    _speed = _speed==enSLOW ? enFAST : enSLOW;
+  }
+
+
   if (_prevStatus == status) {
     _status = status;
   }
