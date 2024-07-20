@@ -6,7 +6,7 @@
 
 
 // Joystick setup
-Joystick joystick(A0, A1);
+Joystick joystick(JOYSTICK_X_PIN, JOYSTICK_Y_PIN);
 
 void wc_joystick_setup() {
 }
