@@ -71,6 +71,11 @@ void wc_small_joystick_loop() {
     speed_l = 0;
   }
 
+  if (small_joystick.isGoingForward()){
+    speed_r = SMALL_JOYSTICK_GO_FORWARD_SPEED;
+    speed_l = SMALL_JOYSTICK_GO_FORWARD_SPEED;
+  }
+  
   wcMovement.move(speed_r, speed_l);
 
   delay(SMALL_JOYSTICK_LOOP_DELAY_mS);

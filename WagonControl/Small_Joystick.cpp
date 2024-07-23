@@ -1,4 +1,5 @@
 #include "Arduino.h"
+#include "Config.h"
 #include "Small_Joystick.h"
 
 Small_Joystick::Small_Joystick(int pinPush, int pinUp, int pinDown, int pinLeft, int pinRight)
@@ -60,8 +61,23 @@ void Small_Joystick::update()
 
 
   if (_prevStatus == status) {
-    _status = status;
+    if (_status != status) {
+      long diff = millis() - _tic;
+      if ( (_status == enPush) && (status == enNONE) && (diff > SMALL_JOYSTICK_PUSH_TIME_TO_GO_FROWARD_mS)) {
+        _isGoingForward = 1;
+      }
+      else{
+        _isGoingForward = 0;
+        _speed = enSLOW;
+      }
+      if ( (_status == enNONE) && (diff > SMALL_JOYSTICK_IDEL_TIME_TO_RETURN_TO_SLOW_mS) ) {
+        _speed = enSLOW;
+      }
+      _status = status;
+      _tic = millis();
+    }
   }
   _prevStatus = status;
+
 }
 

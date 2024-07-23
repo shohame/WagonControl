@@ -6,7 +6,7 @@
 #define eSMALL_JOYSTICK 3
 // end of constance 
 
-#define WC_CONTROLED_BY  eSMALL_JOYSTICK     // eJOYSTICK or eBLUETOOTH
+#define WC_CONTROLED_BY  eSMALL_JOYSTICK     // eJOYSTICK or eBLUETOOTH or eSMALL_JOYSTICK
 
 #define DEBUG 0  // for printing debug information
 
@@ -15,8 +15,12 @@
 #define SMALL_JOYSTICK_DOWN_PIN     A3
 #define SMALL_JOYSTICK_LEFT_PIN     A4
 #define SMALL_JOYSTICK_RIGHT_PIN    A5
-#define SMALL_JOYSTICK_PUSH_PIN     A6
+#define SMALL_JOYSTICK_PUSH_PIN     8
 
+#define SMALL_JOYSTICK_IDEL_TIME_TO_RETURN_TO_SLOW_mS 5000
+
+#define SMALL_JOYSTICK_PUSH_TIME_TO_GO_FROWARD_mS 2000
+#define SMALL_JOYSTICK_GO_FORWARD_SPEED 300 // upto 1000
 
 #define SMALL_JOYSTICK_LOOP_DELAY_mS 50
 
@@ -32,8 +36,8 @@
 #define BRAKE_OPEN_PIN 3
 #define BRAKE_CLOSE_PIN 6
 
-#define BRAKE_OPEN_DURATION_mS  2000
-#define BRAKE_CLOSE_DURATION_mS  2000
+#define BRAKE_OPEN_DURATION_mS  0
+#define BRAKE_CLOSE_DURATION_mS  0
 
 // ######### Ultrasonic sensor configuration: #########
 
