@@ -10,7 +10,7 @@ void WC_Movement::setup()
 {
   _motorR.setup(9, MOTOR_R_DIR_PIN, MOTOR_R_CHANGE_DIR);
   _motorL.setup(10, MOTOR_L_DIR_PIN, MOTOR_L_CHANGE_DIR);
-  _MD_brake.setup(BRAKE_OPEN_PIN, BRAKE_CLOSE_PIN, BRAKE_OPEN_DURATION_mS, BRAKE_CLOSE_DURATION_mS);
+  _MD_brake.setup(BRAKE_CLOSE_PIN, BRAKE_CLOSE_DURATION_mS);
 }
 
 

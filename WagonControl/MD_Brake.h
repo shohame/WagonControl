@@ -5,8 +5,7 @@
 typedef enum {
     bClose,
     bOpen,
-    bOnCloseProc,
-    bOnOpenProc
+    bOnCloseProc
   } eBrakeStat;
 
 
@@ -14,7 +13,7 @@ class MD_Brake
 {
   public:
     MD_Brake();
-    void setup(int openPin, int closePin, int openDuration_mS, int closeDuration_mS);
+    void setup(int closePin, int closeDuration_mS);
     void open();
     void close();
 	char is_open();

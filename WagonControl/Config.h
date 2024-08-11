@@ -33,11 +33,11 @@
 
 
 // ######### Brake control configuration: #########
-#define BRAKE_OPEN_PIN 3
+// #define BRAKE_OPEN_PIN 3  // no need an open pin because the brake is a magnet
 #define BRAKE_CLOSE_PIN 6
 
-#define BRAKE_OPEN_DURATION_mS  0
-#define BRAKE_CLOSE_DURATION_mS  0
+// #define BRAKE_OPEN_DURATION_mS  0
+#define BRAKE_CLOSE_DURATION_mS  10000
 
 // ######### Ultrasonic sensor configuration: #########
 

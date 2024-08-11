@@ -54,7 +54,8 @@ void Small_Joystick::update()
   else {
     status = enNONE;
   }
-
+ 
+  // Change speed if the push button is pressed 
   if ((_prevStatus == status) && (status == enPush) && (_status == enPush)) {
     _speed = _speed==enSLOW ? enFAST : enSLOW;
   }
