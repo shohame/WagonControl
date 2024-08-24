@@ -6,41 +6,49 @@ UltrasonicSensor US_sensor;
 
 
 void echo_interrupt() {
-  if (digitalRead(US_sensor.echoPin) == HIGH) {
-    US_sensor.echo_start = micros();
+  if (digitalRead(US_sensor._echoPin) == HIGH) {
+    US_sensor._echo_start = micros();
   } else {
-      long duration = micros() - US_sensor.echo_start;
-      US_sensor.distance = duration * 0.034 / 2;
-      US_sensor.measurement_in_progress = false;
+      long duration = micros() - US_sensor._echo_start;
+      US_sensor._distance_cm = duration * 0.034 / 2;
+      US_sensor._measurement_in_progress = false;
   }
 }
 
 UltrasonicSensor::UltrasonicSensor() {
-  distance = 0;
-  echo_start = 0;
-  echo_received = false;
-  measurement_in_progress = false;
+  _distance_cm = 0;
+  _echo_start = 0;
+  _echo_received = false;
+  _measurement_in_progress = false;
 }
 
 void UltrasonicSensor::setup(int trig_pin, int echo_pin) {
-  trigPin = trig_pin;
-  echoPin = echo_pin;
-  pinMode(trigPin, OUTPUT);
-  pinMode(echoPin, INPUT);
-  attachInterrupt(digitalPinToInterrupt(echoPin), echo_interrupt, CHANGE);
+  _trigPin = trig_pin;
+  _echoPin = echo_pin;
+  pinMode(_trigPin, OUTPUT);
+  pinMode(_echoPin, INPUT);
+  attachInterrupt(digitalPinToInterrupt(_echoPin), echo_interrupt, CHANGE);
 }
 
 void UltrasonicSensor::start_measurement() {
-  if (!measurement_in_progress) {
-    measurement_in_progress = true;
+  if (!_measurement_in_progress) {
+    _measurement_in_progress = true;
     // Clear the trigPin by setting it LOW
-    digitalWrite(trigPin, LOW);
+    digitalWrite(_trigPin, LOW);
     delayMicroseconds(2);
 
     // Send a 10-microsecond pulse to the trigPin
-    digitalWrite(trigPin, HIGH);
-    delayMicroseconds(10);
-    digitalWrite(trigPin, LOW);
+    digitalWrite(_trigPin, HIGH);
+    delayMicroseconds(20);
+    digitalWrite(_trigPin, LOW);
+  }
+  else {
+    long distance_cm_local;
+    long duration = micros() - US_sensor._echo_start;
+    distance_cm_local = duration * 0.034 / 2;
+    if (distance_cm_local > 1000) {
+      _measurement_in_progress = false;
+    }
   }
 }
 

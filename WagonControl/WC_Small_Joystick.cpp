@@ -77,7 +77,5 @@ void wc_small_joystick_loop() {
   }
   
   wcMovement.move(speed_r, speed_l);
-
-  delay(SMALL_JOYSTICK_LOOP_DELAY_mS);
   
 }

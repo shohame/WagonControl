@@ -9,13 +9,16 @@
 Bluetooth bluetooth;
 BT_RC_Control bl_rc_control;
 byte speed;
-
+int _wc_bluetooth_is_connected = 0;
 
 void wc_bluetooth_setup(){
   bluetooth.setup();
   bl_rc_control.setup();
 }
 
+int wc_bluetooth_is_connected(){
+  return _wc_bluetooth_is_connected;
+}
 
 void wc_bluetooth_loop(){
   int pwm_r, pwm_l, speed_r, speed_l;
@@ -25,10 +28,18 @@ void wc_bluetooth_loop(){
 //Serial.println(dataByte);
   bl_rc_control.set_char(dataByte);
 
+  if (!_wc_bluetooth_is_connected){
+    if (dataByte == 'S'){
+      _wc_bluetooth_is_connected = 1;
+    }
+    return;
+  }
 
   if (bl_rc_control.get_triangular()){
     long range_cm = US_sensor.get_distance();
+
     US_sensor.start_measurement();
+    
     if (range_cm >= US_MIN_RANG_cm && range_cm <= US_MAX_RANG_cm){
 
       speed_r = bl_rc_control.get_forward_speed();
@@ -50,7 +61,7 @@ void wc_bluetooth_loop(){
     delay(1000);
   }
   else{
-    delay(20);
+    
   }
 }
 

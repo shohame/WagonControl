@@ -37,12 +37,14 @@ int Motor::setSpeed(int speed)
   int dir;
   int current_speed = _last_speed;
 
+#if STOP_MOTOR_AT_ONCE==1
   if (speed == 0) {
     analogWrite(_pwmPin, 0);
     _last_speed = 0;
     return 0;
   }
-  
+ #endif
+
   if (speed>0) {
     speed -= speed % SPEED_RESOLUTION;
   } else{

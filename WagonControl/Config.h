@@ -1,12 +1,17 @@
 
 
+#define __VERSION__ "0.0.8.0" 
+
+
+
 // constants: (Do not change!!!)
 #define eJOYSTICK 1
 #define eBLUETOOTH 2
 #define eSMALL_JOYSTICK 3
+#define eBLUETOOTH_and_SMALL_JOYSTICK 10
 // end of constance 
 
-#define WC_CONTROLED_BY  eSMALL_JOYSTICK     // eJOYSTICK or eBLUETOOTH or eSMALL_JOYSTICK
+#define WC_CONTROLED_BY  eBLUETOOTH_and_SMALL_JOYSTICK     // eBLUETOOTH_and_SMALL_JOYSTICK or eJOYSTICK or eBLUETOOTH or eSMALL_JOYSTICK
 
 #define DEBUG 0  // for printing debug information
 
@@ -23,6 +28,7 @@
 #define SMALL_JOYSTICK_GO_FORWARD_SPEED 300 // upto 1000
 
 #define SMALL_JOYSTICK_LOOP_DELAY_mS 50
+#define BLUETOOTH_AND_SMALL_JOYSTICK_LOOP_DELAY_mS 20
 
 #define SMALL_JOYSTICK_FAST_SPEED    700   // upto 1000
 #define SMALL_JOYSTICK_SLOW_SPEED    400   // upto 1000
@@ -64,9 +70,19 @@
 #define ADU_TOLERANCE 30  	// 512 + 30 = forward; 512 - 30 = backward
 #define ADU_MID_VALUE 512
 
+#define STOP_MOTOR_AT_ONCE 0
+
+#define USE_MOTOR_DRIVER 1    // 1 - for the first driver or 0 - for the second driver
+
+#if 1
 #define MOTORS_MIN_PWM_VAL_SPEED (70)    // Do not change it
 #define MOTORS_MAX_PWM_VAL_SPEED (200)   // 197 = (3.5V / 5) * 256
 #define MOTORS_MAX_SPEED_REVERS (200)
+#else
+#define MOTORS_MIN_PWM_VAL_SPEED (100)    // Do not change it
+#define MOTORS_MAX_PWM_VAL_SPEED (160)   // 197 = (3.5V / 5) * 256
+#define MOTORS_MAX_SPEED_REVERS (160)
+#endif
 
 #define TURN_SPEED_FACTOR 2   // reduce revers speed
 
