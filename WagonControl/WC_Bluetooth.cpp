@@ -10,6 +10,8 @@ Bluetooth bluetooth;
 BT_RC_Control bl_rc_control;
 byte speed;
 int _wc_bluetooth_is_connected = 0;
+int current_us_sensor = 0; // 0 = left, 1 = right
+
 
 void wc_bluetooth_setup(){
   bluetooth.setup();
@@ -36,18 +38,41 @@ void wc_bluetooth_loop(){
   }
 
   if (bl_rc_control.get_triangular()){
-    long range_cm = US_sensor.get_distance();
+    int cond_l = 0;
+    int cond_r = 0;
+    long l_range_cm = US_sensor_l.get_distance();
+    long r_range_cm = US_sensor_r.get_distance();
 
-    US_sensor.start_measurement();
-    
-    if (range_cm >= US_MIN_RANG_cm && range_cm <= US_MAX_RANG_cm){
-
-      speed_r = bl_rc_control.get_forward_speed();
-      speed_l = bl_rc_control.get_forward_speed();
-     }
+    if (current_us_sensor == 0){
+      current_us_sensor = 1;
+      US_sensor_r.start_measurement();
+    }
     else{
-      speed_r = 0;
+      current_us_sensor = 0;
+      US_sensor_l.start_measurement();
+    }
+
+    cond_l = (l_range_cm >= US_MIN_RANG_cm && l_range_cm <= US_MAX_RANG_cm);
+    cond_r = (r_range_cm >= US_MIN_RANG_cm && r_range_cm <= US_MAX_RANG_cm);
+
+    speed_l = 0;
+    speed_r = 0;
+    
+    if (cond_l && cond_r){
+      speed_l = bl_rc_control.get_forward_speed();
+      speed_r = bl_rc_control.get_forward_speed();
+     }
+    else if (cond_l){
+      speed_l = bl_rc_control.get_forward_speed();
+      speed_r = bl_rc_control.get_forward_speed()/2;
+    }
+    else if (cond_r){
+      speed_l = bl_rc_control.get_forward_speed()/2;
+      speed_r = bl_rc_control.get_forward_speed();
+    }
+    else{
       speed_l = 0;
+      speed_r = 0;
      }
   }
   else{

@@ -1,6 +1,6 @@
 
 
-#define __VERSION__ "0.0.8.0" 
+#define __VERSION__ "0.0.9.0" 
 
 
 
@@ -47,8 +47,10 @@
 
 // ######### Ultrasonic sensor configuration: #########
 
-#define US_ECHO_PIN   2   // must be 2 or 3 for interrupt in UNO 
-#define US_TRIG_PIN   7
+#define US_ECHO_PIN_L   2   // must be 2 or 3 for interrupt in UNO 
+#define US_ECHO_PIN_R   3   // must be 2 or 3 for interrupt in UNO 
+#define US_TRIG_PIN_L   7
+#define US_TRIG_PIN_R   13
 
 #define US_MIN_RANG_cm 100
 #define US_MAX_RANG_cm 250
