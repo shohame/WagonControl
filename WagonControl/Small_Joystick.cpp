@@ -17,15 +17,11 @@ Small_Joystick::Small_Joystick(int pinPush, int pinUp, int pinDown, int pinLeft,
   
 }
 
-
-void Small_Joystick::update()
+e_status Small_Joystick::_get_current_status_aliexp()
 {
   e_status status = enNONE;
-  // "PushPin" goes low when Pushed or pulled to any direction
   if (digitalRead(_pinPush) == LOW) {
-
     status = enPush;
-
     if (digitalRead(_pinUp) == LOW) {
       status = enU;
       if (digitalRead(_pinLeft) == LOW) {
@@ -50,11 +46,62 @@ void Small_Joystick::update()
     else if (digitalRead(_pinRight) == LOW) {
       status = enR;
     }
-  }  
+  }
   else {
     status = enNONE;
   }
- 
+  return status;
+}
+
+e_status Small_Joystick::_get_current_status_althen()
+{
+  e_status status = enNONE;
+  if (digitalRead(_pinPush) == LOW) {
+    status = enPush;
+  }
+  if (digitalRead(_pinUp) == LOW) {
+    status = enU;
+    if (digitalRead(_pinLeft) == LOW) {
+      status = enUL;
+    }
+    else if (digitalRead(_pinRight) == LOW) {
+      status = enUR;
+    }
+  }
+  else if (digitalRead(_pinDown) == LOW) {
+    status = enD;
+    if (digitalRead(_pinLeft) == LOW) {
+      status = enDL;
+    }
+    else if (digitalRead(_pinRight) == LOW) {
+      status = enDR;
+    }
+  }
+  else if (digitalRead(_pinLeft) == LOW) {
+    status = enL;
+  }
+  else if (digitalRead(_pinRight) == LOW) {
+    status = enR;
+  }
+  return status;
+}
+
+void Small_Joystick::update()
+{
+  e_status status;
+  if (SMALL_JOYSTICK_USE == SMALL_JOYSTICK_USE_ALIEXP) {
+    
+    status = _get_current_status_aliexp();
+  }
+  else if (SMALL_JOYSTICK_USE == SMALL_JOYSTICK_USE_ALTHEN)
+  {
+    status = _get_current_status_althen();
+  }
+  else
+  {
+    Serial.println("Error: SMALL_JOYSTICK_USE is not defined!!!");
+  }
+  
   // Change speed if the push button is pressed 
   if ((_prevStatus == status) && (status == enPush) && (_status == enPush)) {
     _speed = _speed==enSLOW ? enFAST : enSLOW;

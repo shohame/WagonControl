@@ -9,6 +9,12 @@
 #define eBLUETOOTH 2
 #define eSMALL_JOYSTICK 3
 #define eBLUETOOTH_and_SMALL_JOYSTICK 10
+#define SMALL_JOYSTICK_USE_ALIEXP 0
+#define SMALL_JOYSTICK_USE_ALTHEN 1
+#define MOTOR_DRIVER_1 1
+#define MOTOR_DRIVER_2 2
+#define MOTOR_DRIVER_3 3
+
 // end of constance 
 
 #define WC_CONTROLED_BY  eBLUETOOTH_and_SMALL_JOYSTICK     // eBLUETOOTH_and_SMALL_JOYSTICK or eJOYSTICK or eBLUETOOTH or eSMALL_JOYSTICK
@@ -16,6 +22,11 @@
 #define DEBUG 0  // for printing debug information
 
 // ######### Small Joystick configuration: #########
+
+
+#define SMALL_JOYSTICK_USE  SMALL_JOYSTICK_USE_ALTHEN // SMALL_JOYSTICK_USE_ALIEXP or SMALL_JOYSTICK_USE_ALTHEN
+
+
 #define SMALL_JOYSTICK_UP_PIN       A2
 #define SMALL_JOYSTICK_DOWN_PIN     A3
 #define SMALL_JOYSTICK_LEFT_PIN     A4
@@ -76,14 +87,25 @@
 
 #define USE_MOTOR_DRIVER 1    // 1 - for the first driver or 0 - for the second driver
 
-#if 1
-#define MOTORS_MIN_PWM_VAL_SPEED (70)    // Do not change it
-#define MOTORS_MAX_PWM_VAL_SPEED (200)   // 197 = (3.5V / 5) * 256
-#define MOTORS_MAX_SPEED_REVERS (200)
-#else
-#define MOTORS_MIN_PWM_VAL_SPEED (100)    // Do not change it
-#define MOTORS_MAX_PWM_VAL_SPEED (160)   // 197 = (3.5V / 5) * 256
-#define MOTORS_MAX_SPEED_REVERS (160)
+
+#define MOTOR_DRIVER MOTOR_DRIVER_1
+
+#if MOTOR_DRIVER == MOTOR_DRIVER_1
+#define MOTORS_MIN_PWM_SPEED_FORWARD (70)    
+#define MOTORS_MAX_PWM_SPEED_FORWARD (200)   
+#define MOTORS_MIN_PWM_SPEED_REVERS (70)
+#define MOTORS_MAX_PWM_SPEED_REVERS (200)
+#elif MOTOR_DRIVER == MOTOR_DRIVER_2
+#define MOTORS_MIN_PWM_SPEED_FORWARD (100)    
+#define MOTORS_MAX_PWM_SPEED_FORWARD (160)   
+#define MOTORS_MIN_PWM_SPEED_REVERS (100)
+#define MOTORS_MAX_PWM_SPEED_REVERS (160)
+
+#elif MOTOR_DRIVER == MOTOR_DRIVER_3
+#define MOTORS_MIN_PWM_SPEED_FORWARD (100)    
+#define MOTORS_MAX_PWM_SPEED_FORWARD (160)   
+#define MOTORS_MIN_PWM_SPEED_REVERS (80)
+#define MOTORS_MAX_PWM_SPEED_REVERS (110)
 #endif
 
 #define TURN_SPEED_FACTOR 2   // reduce revers speed

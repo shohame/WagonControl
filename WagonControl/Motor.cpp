@@ -55,11 +55,11 @@ int Motor::setSpeed(int speed)
   if (speed>_last_speed) current_speed+=SPEED_RESOLUTION;
   else if (speed<_last_speed) current_speed-=SPEED_RESOLUTION;
   if (current_speed >= 0){
-    pwm_val = MOTORS_MIN_PWM_VAL_SPEED + (long)current_speed * (MOTORS_MAX_PWM_VAL_SPEED - MOTORS_MIN_PWM_VAL_SPEED) / SPEED_RANG;
+    pwm_val = MOTORS_MIN_PWM_SPEED_FORWARD + (long)current_speed * (MOTORS_MAX_PWM_SPEED_FORWARD - MOTORS_MIN_PWM_SPEED_FORWARD) / SPEED_RANG;
     dir = 0;
   }
   else{
-    pwm_val = MOTORS_MIN_PWM_VAL_SPEED - (long)current_speed * (MOTORS_MAX_SPEED_REVERS - MOTORS_MIN_PWM_VAL_SPEED) / SPEED_RANG;
+    pwm_val = MOTORS_MIN_PWM_SPEED_REVERS - (long)current_speed * (MOTORS_MAX_PWM_SPEED_REVERS - MOTORS_MIN_PWM_SPEED_REVERS) / SPEED_RANG;
       dir = 1;
   }
   if (current_speed==0) pwm_val = 0;

@@ -30,11 +30,14 @@ class Small_Joystick
 
     void update();
     e_status getStatus() { return _status; }
+
     e_speed getSpeed() { return _speed; }
     int isGoingForward() { return _isGoingForward; }
   private:
     e_status _prevStatus = enNONE;
     e_status _status = enNONE;
+    e_status _get_current_status_aliexp();
+    e_status _get_current_status_althen();
 
     int _pinPush;
     int _pinUp;

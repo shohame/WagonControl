@@ -60,11 +60,11 @@ void UltrasonicSensor::start_measurement() {
     delayMicroseconds(20);
     digitalWrite(_trigPin, LOW);
   }
-  else {
+  else { // deals with the case when the echo is not received
     long distance_cm_local;
     long duration = micros() - _echo_start;
     distance_cm_local = duration * 0.034 / 2;
-    if (distance_cm_local > 1000) {
+    if (distance_cm_local > 1100) {
       _measurement_in_progress = false;
     }
   }
