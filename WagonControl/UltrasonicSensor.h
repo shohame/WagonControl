@@ -16,22 +16,12 @@ class UltrasonicSensor {
     UltrasonicSensor() ;
 
     void setup(int trig_pin, int echo_pin);
-    int is_measurement_in_progress() { return _measurement_in_progress; }
+
     void start_measurement();
     long get_distance() { return _distance_cm; }
 };
 
 
-extern   UltrasonicSensor US_sensor_l;
-extern   UltrasonicSensor US_sensor_r;
-
-
-
-
-
-
-
-
-
+extern   UltrasonicSensor US_sensor;
 
 #endif

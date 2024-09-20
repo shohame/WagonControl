@@ -13,8 +13,7 @@
 void setup() {
   
   Serial.begin(9600);
-  US_sensor_l.setup(US_TRIG_PIN_L, US_ECHO_PIN_L);
-  US_sensor_r.setup(US_TRIG_PIN_R, US_ECHO_PIN_R);
+  US_sensor.setup(US_TRIG_PIN, US_ECHO_PIN);
   wcMovement.setup();
 
   if (WC_CONTROLED_BY == eJOYSTICK){
@@ -59,5 +58,5 @@ void loop() {
     delay(1000);
   }
 
-
 }
+

@@ -1,30 +1,17 @@
 #include "UltrasonicSensor.h"
-#include "Config.h"
+
 #include "Arduino.h"
 
-UltrasonicSensor US_sensor_l;
-UltrasonicSensor US_sensor_r;
+UltrasonicSensor US_sensor;
 
 
-void echo_interrupt_l() {
-  UltrasonicSensor* pUS = &US_sensor_l;
-  if (digitalRead(pUS->_echoPin) == HIGH) {
-    pUS->_echo_start = micros();
+void echo_interrupt() {
+  if (digitalRead(US_sensor._echoPin) == HIGH) {
+    US_sensor._echo_start = micros();
   } else {
-      long duration = micros() - pUS->_echo_start;
-      pUS->_distance_cm = duration * 0.034 / 2;
-      pUS->_measurement_in_progress = false;
-  }
-}
-
-void echo_interrupt_r() {
-  UltrasonicSensor* pUS = &US_sensor_r;
-  if (digitalRead(pUS->_echoPin) == HIGH) {
-    pUS->_echo_start = micros();
-  } else {
-      long duration = micros() - pUS->_echo_start;
-      pUS->_distance_cm = duration * 0.034 / 2;
-      pUS->_measurement_in_progress = false;
+      long duration = micros() - US_sensor._echo_start;
+      US_sensor._distance_cm = duration * 0.034 / 2;
+      US_sensor._measurement_in_progress = false;
   }
 }
 
@@ -40,12 +27,7 @@ void UltrasonicSensor::setup(int trig_pin, int echo_pin) {
   _echoPin = echo_pin;
   pinMode(_trigPin, OUTPUT);
   pinMode(_echoPin, INPUT);
-  if (_echoPin == US_ECHO_PIN_L) {
-    attachInterrupt(digitalPinToInterrupt(_echoPin), echo_interrupt_l, CHANGE);
-  }
-  else {
-    attachInterrupt(digitalPinToInterrupt(_echoPin), echo_interrupt_r, CHANGE);
-  }
+  attachInterrupt(digitalPinToInterrupt(_echoPin), echo_interrupt, CHANGE);
 }
 
 void UltrasonicSensor::start_measurement() {
@@ -60,17 +42,12 @@ void UltrasonicSensor::start_measurement() {
     delayMicroseconds(20);
     digitalWrite(_trigPin, LOW);
   }
-  else { // deals with the case when the echo is not received
+  else {
     long distance_cm_local;
-    long duration = micros() - _echo_start;
+    long duration = micros() - US_sensor._echo_start;
     distance_cm_local = duration * 0.034 / 2;
     if (distance_cm_local > 1100) {
       _measurement_in_progress = false;
     }
   }
 }
-
-
-
-
-
