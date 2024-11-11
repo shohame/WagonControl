@@ -4,13 +4,13 @@
 
 
 class UltrasonicSensor {
-  public:
-    volatile long distance;
-    unsigned long echo_start;
-    bool echo_received;
-    bool measurement_in_progress;
-    int trigPin;
-    int echoPin;
+  public: // for interupt needs
+    volatile long _distance_cm;
+    unsigned long _echo_start;
+    bool _echo_received;
+    bool _measurement_in_progress;
+    int _trigPin;
+    int _echoPin;
 
   public:
     UltrasonicSensor() ;
@@ -18,11 +18,10 @@ class UltrasonicSensor {
     void setup(int trig_pin, int echo_pin);
 
     void start_measurement();
-    long get_distance() { return distance; }
+    long get_distance() { return _distance_cm; }
 };
 
 
 extern   UltrasonicSensor US_sensor;
-
 
 #endif

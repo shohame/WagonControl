@@ -9,7 +9,8 @@
 
 void setup() {
   Serial.begin(9600);
-  US_sensor.setup(SU_TRIG_PIN, US_ECHO_PIN);
+  US_sensor.setup(US_TRIG_PIN, US_ECHO_PIN);
+  Serial.println("Start loop...");
 }
 
 void loop() {
@@ -18,5 +19,5 @@ void loop() {
   Serial.print(US_sensor.get_distance());
 
   Serial.println(" cm");
-  delay(500); 
+  delay(100); 
 } 
