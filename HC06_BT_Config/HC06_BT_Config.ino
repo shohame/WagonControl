@@ -4,6 +4,8 @@
 /*
 AT command for HC-06:
 
+Must set "No Line Ending"
+
 AT+NAMEOXEN-0001
 AT+PIN1234
 AT+BAUD4    // 4-9600, 5-19200, 6—38400, 7—57600, 8—115200
