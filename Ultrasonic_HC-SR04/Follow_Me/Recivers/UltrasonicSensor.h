@@ -5,8 +5,8 @@
 
 class UltrasonicSensor {
   public: // for interupt needs
-    unsigned long _duration_l;
-    unsigned long _duration_r;
+    long _duration_l;
+    long _duration_r;
     long _diff_duration;
     unsigned long _echo_start;
     bool _echo_received;

@@ -16,7 +16,12 @@ void setup() {
 
 void loop() {
   US_sensor.start_measurement();
-  Serial.print("Diff: ");  
-  Serial.print(US_sensor.get_diff_duration());
-  delay(50); 
+ if (0){
+  Serial.print(US_sensor._duration_l);  
+  Serial.print(", "); 
+  Serial.println(US_sensor._duration_r); 
+ }else{
+   Serial.println(US_sensor.get_diff_duration());
+ }
+ delay(100); 
 } 
