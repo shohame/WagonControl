@@ -29,7 +29,7 @@ void wc_bluetooth_loop(){
   bl_rc_control.set_char(dataByte);
 
   if (!_wc_bluetooth_is_connected){
-    if (dataByte == 'S'){
+    if (dataByte != 0){
       _wc_bluetooth_is_connected = 1;
     }
     return;

@@ -1,9 +1,11 @@
+#include "Config.h"
 #include "UltrasonicSensor.h"
-
 #include "Arduino.h"
 
 UltrasonicSensor US_sensor;
 
+const byte us_trig_pin = US_TRIG_PIN_L;
+const byte us_echo_pin = US_ECHO_PIN_L;
 
 void echo_interrupt() {
   if (digitalRead(US_sensor._echoPin) == HIGH) {
@@ -22,9 +24,9 @@ UltrasonicSensor::UltrasonicSensor() {
   _measurement_in_progress = false;
 }
 
-void UltrasonicSensor::setup(int trig_pin, int echo_pin) {
-  _trigPin = trig_pin;
-  _echoPin = echo_pin;
+void UltrasonicSensor::setup() {
+  _trigPin = us_trig_pin;
+  _echoPin = us_echo_pin;
   pinMode(_trigPin, OUTPUT);
   pinMode(_echoPin, INPUT);
   attachInterrupt(digitalPinToInterrupt(_echoPin), echo_interrupt, CHANGE);

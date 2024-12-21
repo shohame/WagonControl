@@ -13,12 +13,23 @@ void WC_Movement::setup()
   _MD_brake.setup(BRAKE_CLOSE_PIN, BRAKE_CLOSE_DURATION_mS);
 }
 
+void WC_Movement::set_is_continuously_forward(int is_continuously_forward)
+{
+  _is_continuously_forward = is_continuously_forward;
+}
 
 void WC_Movement::move(int speedR, int speedL){
 
     int pwm_r, pwm_l;
 
-  
+    if (speedR || speedL){
+        _is_continuously_forward = 0;
+    }
+
+    if (_is_continuously_forward){
+        speedR = CONTINUOUSLY_GO_FORWARD_SPEED;
+        speedL = CONTINUOUSLY_GO_FORWARD_SPEED;
+    }
   //Serial.print(speed_r); Serial.print(", "); Serial.print(speed_l); Serial.print(", ");
 
     if (speedR==0 && speedL==0){

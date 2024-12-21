@@ -1,7 +1,6 @@
 #include <math.h>
 #include <Arduino.h>
 
-#include "WC_Joystick.h"
 #include "WC_Small_Joystick.h"
 #include "WC_Bluetooth.h"
 #include "Config.h"
@@ -13,15 +12,11 @@
 void setup() {
   
   Serial.begin(9600);
-  US_sensor.setup(US_TRIG_PIN, US_ECHO_PIN);
+  US_sensor.setup();
   wcMovement.setup();
-
-  if (WC_CONTROLED_BY == eJOYSTICK){
-    wc_joystick_setup();
-  }
-  else { // (WC_CONTROLED_BY == eBLUETOOTH
-    wc_bluetooth_setup();
-  }
+  
+  wc_bluetooth_setup();
+  
   delay(200);
   Serial.println('=============================');
   Serial.print("Version: ");
@@ -32,10 +27,7 @@ void setup() {
 }
 
 void loop() {
-  if (WC_CONTROLED_BY == eJOYSTICK){
-    wc_joystick_loop();
-  }
-  else if (WC_CONTROLED_BY == eBLUETOOTH){
+  if (WC_CONTROLED_BY == eBLUETOOTH){
     wc_bluetooth_loop();
     delay(20);
   }

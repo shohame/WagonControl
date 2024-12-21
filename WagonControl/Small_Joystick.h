@@ -32,7 +32,6 @@ class Small_Joystick
     e_status getStatus() { return _status; }
 
     e_speed getSpeed() { return _speed; }
-    int isGoingForward() { return _isGoingForward; }
   private:
     e_status _prevStatus = enNONE;
     e_status _status = enNONE;
@@ -44,7 +43,6 @@ class Small_Joystick
     int _pinDown;
     int _pinLeft;
     int _pinRight;
-    int _isGoingForward = 0;
     e_speed _speed = enSLOW;
     unsigned long _tic = 0;
 };

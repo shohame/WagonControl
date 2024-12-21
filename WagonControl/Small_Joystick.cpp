@@ -1,5 +1,7 @@
 #include "Arduino.h"
 #include "Config.h"
+#include "WC_Movement.h"
+
 #include "Small_Joystick.h"
 
 Small_Joystick::Small_Joystick(int pinPush, int pinUp, int pinDown, int pinLeft, int pinRight)
@@ -105,18 +107,18 @@ void Small_Joystick::update()
   // Change speed if the push button is pressed 
   if ((_prevStatus == status) && (status == enPush) && (_status == enPush)) {
     _speed = _speed==enSLOW ? enFAST : enSLOW;
-  }
 
+  }
 
   if (_prevStatus == status) {
     if (_status != status) {
       long diff = millis() - _tic;
       if ( (_status == enPush) && (status == enNONE) && (diff > SMALL_JOYSTICK_PUSH_TIME_TO_GO_FROWARD_mS)) {
-        _isGoingForward = 1;
+        wcMovement.set_is_continuously_forward(1);      
       }
       else{
-        _isGoingForward = 0;
-        _speed = enSLOW;
+        wcMovement.set_is_continuously_forward(0);
+        _speed = enSLOW;  // After continuous forward, the speed should be slow
       }
       if ( (_status == enNONE) && (diff > SMALL_JOYSTICK_IDEL_TIME_TO_RETURN_TO_SLOW_mS) ) {
         _speed = enSLOW;

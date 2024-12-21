@@ -15,7 +15,7 @@ class UltrasonicSensor {
   public:
     UltrasonicSensor() ;
 
-    void setup(int trig_pin, int echo_pin);
+    void setup();
 
     void start_measurement();
     long get_distance() { return _distance_cm; }
